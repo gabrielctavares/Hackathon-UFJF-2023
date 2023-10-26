@@ -80,9 +80,8 @@ Inicie o gerador de códigos
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `int` | **Obrigatório**. O ID do item que você deletar |
 
-## Stack utilizada
-
-**Front-end:** Razor Pages, Bootstrap;
-
-**Back-end:** ASP.NET;
-
+## Tecnologias Utilizadas
+- **Linguagem de Programação:** C#
+- **Framework(s):** Razor Pages, ASP.NET;
+- **Banco de Dados:** SQL Server
+- **Tecnologias Adicionais:** Bootstrap, Docker
