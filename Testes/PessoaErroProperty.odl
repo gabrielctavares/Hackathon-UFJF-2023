@@ -1,0 +1,23 @@
+struct Endereco 
+{
+	string  logradouro;
+	string 	complemento;
+	string bairro;
+	string;
+	string	estado;
+	string	cep;
+};
+class Pessoa{
+	attribute string nome;
+	attribute struct Endereco endereco;
+}
+
+Class PessoaFisica extends Pessoa
+{
+	attribute long cpf;
+}
+
+Class PessoaJuridica extends Pessoa
+{
+  attribute long cnpj;
+}

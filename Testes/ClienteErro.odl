@@ -1,0 +1,6 @@
+class Cliente {
+	attribute string;
+	attribute long ;
+	attribute double saldo;
+	attribute int quantidadeCompras;
+}

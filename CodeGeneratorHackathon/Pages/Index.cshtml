@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Home";
     var mensagemErro = TempData["Erro"] as string;
-
+    var mensagemSucesso = TempData["Sucesso"] as string;
 }
 
 @if (!string.IsNullOrEmpty(mensagemErro))
@@ -12,13 +12,19 @@
         @mensagemErro
     </div>
 }
+@if (!string.IsNullOrEmpty(mensagemSucesso))
+{
+    <div class="alert alert-success">
+        @mensagemSucesso
+    </div>
+}
 
 <div class="container">
     <h2 class="my-4">COD.01 - Gerador de códigos para persistência dos dados com uso da ODL</h2>
     <form method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="Projeto">Projeto (digite o caminho do .csproj):</label>
-            <input type="text" class="form-control" id="Projeto" name="Projeto" required>
+            <input type="text" class="form-control" id="Projeto" name="Projeto" value="@Model.Projeto" required>
         </div>
         <div class="form-group mt-2">
             <label for="ArquivoODL">Arquivo ODL (selecione um arquivo .odl):</label>

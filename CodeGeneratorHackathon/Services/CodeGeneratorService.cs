@@ -37,13 +37,13 @@ namespace CodeGeneratorHackathon.Services
             var list = new ListModels();
             list.ProjectName = Path.GetFileNameWithoutExtension(projectPath);
             var basePath = Path.GetDirectoryName(projectPath);
-            var folder = Path.Combine(basePath, ViewConverter.ClassView.ToPath());
+            var folder = Path.Combine(basePath, ViewConverter.ServiceView.ToPath());
             if (Directory.Exists(folder))
             {
                 string[] nomesArquivos = Directory.GetFiles(folder);
                 foreach (string nomeArquivo in nomesArquivos)
                 {
-                    var nomeLimpo = Path.GetFileNameWithoutExtension(nomeArquivo);
+                    var nomeLimpo = Path.GetFileNameWithoutExtension(nomeArquivo).Replace("Service", "");
                     list.Models.Add(nomeLimpo);
                 }
             }

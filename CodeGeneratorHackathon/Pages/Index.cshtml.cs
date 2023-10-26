@@ -8,7 +8,6 @@ namespace CodeGeneratorHackathon.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
         private readonly CodeGeneratorService _generatorService;
         private readonly ExecuteProjectService _executeService;
 
@@ -19,15 +18,15 @@ namespace CodeGeneratorHackathon.Pages
         [BindProperty]
         public string ConteudoODL { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger, CodeGeneratorService generatorService, ExecuteProjectService executeProjectService)
+        public IndexModel(CodeGeneratorService generatorService, ExecuteProjectService executeProjectService)
         {
-            _logger = logger;
             _generatorService = generatorService;
             _executeService = executeProjectService;
         }
 
         public void OnGet()
         {
+            Projeto = TempData["CaminhoProj"] as string;
         }
 
         public async Task<IActionResult> OnPost()
@@ -61,6 +60,8 @@ namespace CodeGeneratorHackathon.Pages
 
                 var item = ODLParser.Parse(ConteudoODL, Projeto);
                 await _generatorService.Generate(Projeto, item);
+                TempData["Sucesso"] = "Código gerado com sucesso";
+                TempData["CaminhoProj"] = Projeto;
             }
             catch (Exception e)
             {
@@ -72,6 +73,7 @@ namespace CodeGeneratorHackathon.Pages
             try
             {
                 await _executeService.ExecuteService(Projeto);
+                TempData["Sucesso"] = "Sistema Iniciado, acompanhe o cmd para mais informações.";
             }
             catch (Exception e)
             {
