@@ -1,0 +1,36 @@
+﻿@model Models.ListModels
+@{
+
+}
+@functions {
+    private string GetNamespace(string path)
+    {
+        return $"{Model.ProjectName}.{path}";
+    }
+}
+
+<text>
+using @GetNamespace("Models");
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+
+namespace @GetNamespace("Data");
+public class DataContext : DbContext
+{
+    public DataContext(DbContextOptions<DataContext> options) : base(options)
+    {
+    }
+    @foreach (var classModel in Model.Models)
+    {
+        <text>
+     public DbSet<@classModel> @classModel { get; set; }
+        </text>
+
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+    }
+}
+</text>

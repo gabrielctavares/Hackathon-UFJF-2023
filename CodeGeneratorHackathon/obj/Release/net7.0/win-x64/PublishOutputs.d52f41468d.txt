@@ -1,0 +1,5 @@
+D:\Pessoal\CodeGeneratorHackathon\bin\Release\net7.0\win-x64\publish\appsettings.Development.json
+D:\Pessoal\CodeGeneratorHackathon\bin\Release\net7.0\win-x64\publish\appsettings.json
+D:\Pessoal\CodeGeneratorHackathon\bin\Release\net7.0\win-x64\publish\CodeGeneratorHackathon.pdb
+D:\Pessoal\CodeGeneratorHackathon\bin\Release\net7.0\win-x64\publish\aspnetcorev2_inprocess.dll
+D:\Pessoal\CodeGeneratorHackathon\bin\Release\net7.0\win-x64\publish\CodeGeneratorHackathon.exe

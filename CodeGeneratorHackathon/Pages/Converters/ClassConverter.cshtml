@@ -1,0 +1,40 @@
+﻿@model Models.ClassModel
+@{
+    var baseText = Model.IsSubclass ? $": {Model.BaseClassName}" : "";
+    var abstractText = Model.IsAbstract ? "abstract" : "";
+}
+@functions{
+    private string GetNamespace(string path)
+    {
+        return $"{Model.ProjectName}.{path}";
+    }
+}
+
+<text>
+    namespace @GetNamespace("Models");
+
+    public @abstractText class @Model.Name @baseText
+    {
+    @if (!Model.IsSubclass)
+    {
+        <text>
+            public int Id { get; set; }
+        </text>
+    }
+    @foreach (var property in Model.Properties)
+    {
+        if (property.Name.Equals("Id"))
+            continue;
+        @if (property.IsComplexType)
+        {
+            <text>
+            public int @property.ForeignKey { get; set; }
+            </text>
+        }
+        <text>
+            public virtual @property.Type @property.Name { get; set; }
+        </text>
+    }
+    
+    }
+</text>

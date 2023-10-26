@@ -1,0 +1,36 @@
+﻿@using CodeGeneratorHackathon.Models;
+@model Models.ClassModel
+@{
+    var className = Model.Name;
+    var configurationName = $"{className}Configuration";
+}
+
+@functions{
+    private string GetNamespace(string path)
+    {
+        return $"{Model.ProjectName}.{path}";
+    }
+}
+
+<text>
+using @GetNamespace("Models");
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace @GetNamespace("Data.Configurations")
+{
+    public class @configurationName : IEntityTypeConfiguration<@className>
+    {
+        public void Configure(EntityTypeBuilder<@className> entity)
+        {
+            @foreach (var prop in Model.Properties.Where(x => x.IsComplexType && x.Relation.Equals(ComplexTypeRelation.OneToOne)))
+            {                
+            <text>
+            entity.HasOne(x => x.@prop.Name).WithOne().HasForeignKey<@className>(x => x.@prop.ForeignKey);
+            </text>
+            }
+
+        }
+    }
+}
+</text>

@@ -1,0 +1,61 @@
+﻿@model Models.ClassModel
+@{
+    var className = Model.Name;
+    var serviceName = $"{className}Service";
+    var list = $"List";
+
+}
+@functions{
+    private string GetDbContextAction(string action)
+    {
+        return $"_context.{Model.Name}.{action}";
+    }
+    private string GetNamespace(string path)
+    {
+        return $"{Model.ProjectName}.{path}";
+    }
+}
+<text>
+using @GetNamespace("Data");
+using @GetNamespace("Models");
+using Microsoft.EntityFrameworkCore;
+
+namespace @GetNamespace("Services");
+
+public class @serviceName : BaseService<@className>
+{
+    public @serviceName (DataContext context) : base(context)
+    {
+    }
+
+    public override async Task<bool> Delete(int id)
+    {
+        try
+        {
+            var model = await @GetDbContextAction("FindAsync(id)");
+
+            if (model == null)
+                return false;
+
+            @GetDbContextAction("Remove(model)");
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+            
+    public override async Task<@list<@className>> GetAll()
+    {
+        return await @GetDbContextAction("ToListAsync()");
+    }
+
+    public override async Task<@className> GetById(int id)
+    {
+        return await @GetDbContextAction("")FirstOrDefaultAsync(x => x.Id == id);
+    }
+}
+</text>
