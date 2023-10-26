@@ -24,7 +24,7 @@ namespace CodeGeneratorHackathon.Services
 
             return dotnetProcess.ExitCode == 0;
         }
-        private async Task<bool> ExecuteCMD(string basePath, string comando)
+        private bool ExecuteCMD(string basePath, string comando)
         {
             var cmdProcess = new Process
             {
@@ -38,8 +38,7 @@ namespace CodeGeneratorHackathon.Services
                 }
             };
             cmdProcess.Start();
-            await cmdProcess.WaitForExitAsync();
-            return cmdProcess.ExitCode == 0;
+            return true;
         }
 
         public async Task ExecuteService(string path)
@@ -53,7 +52,7 @@ namespace CodeGeneratorHackathon.Services
 
             var runCommand = $"dotnet run";
 
-            if(!await ExecuteCMD(basePath, runCommand))
+            if(!ExecuteCMD(basePath, runCommand))
                 throw new Exception("Não foi possível iniciar o sistema.");
         }
 
